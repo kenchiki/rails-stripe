@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  root 'my/user_plans#free'
+
   devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  namespace :my do
+    resource :user_plan, only: %i[edit update show] do
+      get :free
+      get :start
+    end
+  end
 end

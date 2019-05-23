@@ -1,0 +1,7 @@
+---
+ja:
+  enumerize:
+    plan:
+      stripe_plan_id:
+        free: "無料プラン"
+        start: "有料プラン"

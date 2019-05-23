@@ -14,6 +14,8 @@ gem 'simple_form'
 gem 'bootstrap', '>= 4.3.1'
 gem 'haml-rails'
 gem 'devise'
+gem 'stripe'
+gem 'enumerize'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

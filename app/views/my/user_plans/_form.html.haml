@@ -1,0 +1,49 @@
+-# frozen_string_literal: true
+
+-#公式のhtml
+-#<form action="/charge" method="post" id="payment-form">
+-#  <div class="form-row">
+-#    <label for="card-element">
+-#      Credit or debit card
+-#    </label>
+-#    <div id="card-element">
+-#      <!-- A Stripe Element will be inserted here. -->
+-#    </div>
+-#
+-#    <!-- Used to display form errors. -->
+-#    <div id="card-errors" role="alert"></div>
+-#  </div>
+-#
+-#  <button>Submit Payment</button>
+-#</form>
+
+- if @user_plan.plan.stripe_plan_id.start?
+  %h1 無料プランに変更する
+  = simple_form_for([:my, @user_plan], url: my_user_plan_path) do |f|
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+    = f.input_field :stripe_plan_id, as: :hidden, value: Plan.stripe_plan_id.find_value(:free).value
+
+    .form-actions
+      = f.submit
+
+- if @user_plan.plan.stripe_plan_id.free?
+  %h1 有料プランに変更する
+
+  = simple_form_for([:my, @user_plan], url: my_user_plan_path, html: {id: 'payment-form'}) do |f|
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+    = f.input_field :stripe_plan_id, as: :hidden, value: Plan.stripe_plan_id.find_value(:start).value
+
+    .form-inputs
+      %label{:for => "card-element"}
+        Credit or debit card
+      #card-element
+      #card-errors{:role => "alert"}
+
+    .form-inputs テスト用クレジットカード番号：4242424242424242（後の有効期限とかは未来の物を入れればいいので2を全部入れる）
+
+    .form-actions
+      %button プラン変更
