@@ -1,6 +1,6 @@
 document.addEventListener('turbolinks:load', function () {
 // Create a Stripe client.
-  var stripe = Stripe('pk_test_35MqF3uQFYEH2xh4ds0xA5Gt00vrZWBoAU');
+  var stripe = Stripe('<%= ENV.fetch('STRIPE_PUBLIC_KEY') %>');
 
 // Create an instance of Elements.
   var elements = stripe.elements();
